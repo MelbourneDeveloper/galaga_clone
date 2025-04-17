@@ -1,16 +1,14 @@
 import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
-import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:galaga_clone/components/background.dart';
-import 'package:galaga_clone/components/bullet.dart';
-import 'package:galaga_clone/components/enemy.dart';
-import 'package:galaga_clone/components/enemy_manager.dart';
-import 'package:galaga_clone/components/hud.dart';
 import 'package:galaga_clone/components/player.dart';
-
+import 'package:galaga_clone/components/enemy_manager.dart';
+import 'package:galaga_clone/components/background.dart';
+import 'package:galaga_clone/components/hud.dart';
+import 'package:galaga_clone/components/enemy.dart';
+import 'package:galaga_clone/components/bullet.dart';
 
 class GalagaGame extends FlameGame with KeyboardEvents, HasCollisionDetection {
   late Player player;
@@ -24,7 +22,8 @@ class GalagaGame extends FlameGame with KeyboardEvents, HasCollisionDetection {
   Future<void> onLoad() async {
     await super.onLoad();
     camera.viewport = FixedResolutionViewport(
-      Vector2(gameWidth, gameHeight),
+      resolution:
+          Vector2(400, 800), // Use constants directly until we fix imports
     );
     add(SpaceBackground());
     player = Player();

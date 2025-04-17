@@ -9,7 +9,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Set preferred orientations to portrait
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 
   // Initialize Flame
   await Flame.device.fullScreen();
@@ -58,19 +60,17 @@ class GameScreen extends StatelessWidget {
       backgroundColor: backgroundColor,
       body: GameWidget(
         game: GalagaGame(),
-        loadingBuilder:
-            (context) => const Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(accentColor),
-              ),
-            ),
-        errorBuilder:
-            (context, error) => Center(
-              child: Text(
-                'Error occurred: $error',
-                style: const TextStyle(color: Colors.red, fontSize: 20),
-              ),
-            ),
+        loadingBuilder: (context) => const Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation(accentColor),
+          ),
+        ),
+        errorBuilder: (context, error) => Center(
+          child: Text(
+            'Error occurred: $error',
+            style: const TextStyle(color: Colors.red, fontSize: 20),
+          ),
+        ),
         overlayBuilderMap: {'pauseMenu': (_, game) => const PauseMenu()},
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
-import 'package:flame/components.dart';
 import 'package:flame/camera.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../constants/game_constants.dart';
 import '../components/player.dart';
