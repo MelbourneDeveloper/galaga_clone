@@ -1,16 +1,70 @@
-# galaga_clone
+# Galaga Clone Specification
 
-A new Flutter project.
+## Architecture
 
-## Getting Started
+```mermaid
+graph TD
+    Main --> GalagaGame
+    GalagaGame --> Player
+    GalagaGame --> EnemyManager
+    GalagaGame --> SpaceBackground
+    GalagaGame --> HUD
+    Player --> Bullet
+    Player --> Explosion
+    EnemyManager --> Enemy
+    Enemy --> Bullet
+    Enemy --> Explosion
+```
 
-This project is a starting point for a Flutter application.
+## Game States
 
-A few resources to get you started if this is your first Flutter project:
+```mermaid
+stateDiagram-v2
+    [*] --> Title
+    Title --> Playing: Start Game
+    Playing --> Paused: Pause
+    Paused --> Playing: Resume
+    Playing --> GameOver: Player Dies
+    GameOver --> Title: Return to Title
+    GameOver --> Playing: Restart
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Enemy Behavior
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```mermaid
+stateDiagram-v2
+    [*] --> Formation
+    Formation --> Diving: Random Chance
+    Diving --> Returning: Path Complete
+    Returning --> Formation: Return Complete
+```
+
+## Components
+
+- **GalagaGame**: Main game controller
+- **Player**: Player-controlled ship with movement and shooting
+- **Enemy**: Enemy ships with formation, diving and shooting behaviors
+- **EnemyManager**: Manages spawning waves of enemies in formation
+- **Bullet**: Projectiles fired by player and enemies
+- **Explosion**: Animation displayed when entities are destroyed
+- **SpaceBackground**: Parallax star field background
+- **HUD**: Displays score, lives and game status
+
+## Implementation Status
+
+All components have been implemented:
+- Game framework with Flame
+- Player ship with movement and shooting
+- Enemies with formation patterns and diving behavior
+- Collision detection between bullets and game entities
+- Score tracking and lives display
+- Space background with parallax scrolling stars
+
+## Assets Required
+
+- Player ship sprite
+- Enemy ship sprites (standard and boss)
+- Bullet sprites
+- Explosion animation frames
+- Background elements (optional)
+- Audio files for sound effects and music (optional)
