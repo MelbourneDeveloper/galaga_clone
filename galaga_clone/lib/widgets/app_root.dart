@@ -7,6 +7,7 @@ class AppRoot extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) => const MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Galaga Clone',
         home: GameScreen(),
       );
