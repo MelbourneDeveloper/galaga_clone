@@ -33,6 +33,7 @@ const double explosionDuration = 0.5;
 const Color primaryColor = Color(0xFFFFFFFF);
 const Color accentColor = Color(0xFF00FF00);
 const Color backgroundColor = Color(0xFF000022);
+const Color desktopBackgroundColor = Color(0xFF000035);
 
 /// Score constants
 const int pointsPerStandardEnemy = 50;
