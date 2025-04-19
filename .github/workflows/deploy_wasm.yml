@@ -40,7 +40,7 @@ jobs:
 
       - name: Build WASM
         run: |
-          flutter build web --wasm --release --base-href "/"
+          flutter build web --wasm --release 
           
       - name: Update COOP and COEP headers
         run: |
