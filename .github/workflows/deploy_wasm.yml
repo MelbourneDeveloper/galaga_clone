@@ -1,0 +1,78 @@
+name: Deploy Wasm
+
+on:
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: galaga_clone
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+          channel: 'stable'
+          architecture: x64
+          
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build WASM
+        run: |
+          flutter build web --wasm --release --base-href "/"
+          
+      - name: Update COOP and COEP headers
+        run: |
+          echo '
+          {
+            "headers": [
+              {
+                "source": "**/*",
+                "headers": [
+                  {
+                    "key": "Cross-Origin-Embedder-Policy",
+                    "value": "credentialless"
+                  },
+                  {
+                    "key": "Cross-Origin-Opener-Policy",
+                    "value": "same-origin"
+                  }
+                ]
+              }
+            ]
+          }
+          ' > build/web/_headers
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+          
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'galaga_clone/build/web'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
