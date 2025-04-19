@@ -42,7 +42,7 @@ jobs:
 
       - name: Build WASM
         run: |
-          --base-href "/galaga_clone/" 
+          flutter build web --wasm --release --base-href "/galaga_clone/" 
           
       - name: Update COOP and COEP headers
         run: |
